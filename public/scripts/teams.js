@@ -1,15 +1,3 @@
-const express = require('express'); // "require" the Express module
-const router = express.Router(); // create a new router object
-const { Team } = require('../modules/nhlStats.js'); // "require" the team model
-
-router.get('/teams', async (req, res) => { // set the route for the home page
-    try {
-        const teams = await Team.find({});
-        res.json(teams);
-    } catch (err) {
-        res.status(404).json({message: 'Error getting teams.'});
-    }
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/teams')
@@ -32,8 +20,6 @@ function populateTable(teamsData) {
         tableBody.innerHTML += row;
     });
 }
-
-let sortDirection = [true, true, true, true, true, true];
 
 function sortTable() {
     let table, rows, switching, i, x, y, shouldSwitch;
@@ -70,4 +56,4 @@ function sortTable() {
     }
   }
 
-module.exports = {router, sortTable}; // export the router object
+module.exports = {sortTable};

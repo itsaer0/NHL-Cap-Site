@@ -2,6 +2,7 @@ const express = require('express'); // "require" the Express module
 const bodyParser = require('body-parser'); // "require" the body-parser module
 const nhlData = require('./modules/nhlStats'); // "require" the playerStats module
 const userRoutes = require('./routes/user'); // "require" the userRoutes module
+const teamsRouter = require('./routes/teams'); // "require" the teamsRouter module
 //require('pg'); // "require" the pg module
 //const Sequelize = require('sequelize'); // "require" the sequelize module
 const app = express(); // obtain the "app" object
@@ -10,7 +11,7 @@ app.set('view engine', 'ejs'); // set the view engine
 app.use(express.static(__dirname + '/public')); // set the static folder
 app.use(bodyParser.json()); // enable JSON bodies
 app.use(express.urlencoded({extended: true})); // enable URL-encoded bodies
-app.set('views', __dirname + './views'); // set the views folder
+app.set('views', __dirname + '/views'); // set the views folder
 
 nhlData.initializeDB().then(() => { // initialize the playerStats module
 
@@ -64,6 +65,8 @@ nhlData.initializeDB().then(() => { // initialize the playerStats module
     });
 
     app.use('/user', userRoutes); // use the userRoutes module
+
+    app.use('/api', teamsRouter); // use the userRoutes module
 
     // start the server on the port and output a confirmation to the console
     app.listen(HTTP_PORT, () => console.log(`server listening on: http://localhost:${HTTP_PORT}`));
