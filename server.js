@@ -69,3 +69,5 @@ nhlData.initializeDB().then(() => { // initialize the playerStats module
     app.listen(HTTP_PORT, () => console.log(`server listening on: http://localhost:${HTTP_PORT}`));
 
 });
+
+module.exports = app; // export the app object
