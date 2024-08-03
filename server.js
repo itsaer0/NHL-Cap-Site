@@ -2,12 +2,15 @@ const express = require('express'); // "require" the Express module
 const bodyParser = require('body-parser'); // "require" the body-parser module
 const nhlData = require('./modules/nhlStats'); // "require" the playerStats module
 const userRoutes = require('./routes/user'); // "require" the userRoutes module
+//require('pg'); // "require" the pg module
+//const Sequelize = require('sequelize'); // "require" the sequelize module
 const app = express(); // obtain the "app" object
 const HTTP_PORT = process.env.PORT || 8080; // assign a port
 app.set('view engine', 'ejs'); // set the view engine
-app.use(express.static('public')); // set the static folder
+app.use(express.static(__dirname + '/public')); // set the static folder
 app.use(bodyParser.json()); // enable JSON bodies
 app.use(express.urlencoded({extended: true})); // enable URL-encoded bodies
+app.set('views', __dirname + './views'); // set the views folder
 
 nhlData.initializeDB().then(() => { // initialize the playerStats module
 
