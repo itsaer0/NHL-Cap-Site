@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>NHL Cap Site</title>
+</head>
+<body>
+    <%- include('./partials/navbar', {page: '/home'}) %>
+    <h1>2024-25 Cap Space</h1>
+    <h5>Upper Limit: 88.0M | Lower Limit: 65.0M</h5>
+    <table id="sortableTable" class="table-zebra">
+        <thead>
+            <tr>
+                <th><button onclick="sortTable(0)">Team<span id="arrow0">▼</span></button></th>
+                <th><button onclick="sortTable(1)">Roster Size<span id="arrow1">▼</span></button></th>
+                <th><button onclick="sortTable(2)">Contracts<span id="arrow2">▼</span></button></th>
+                <th><button onclick="sortTable(3)">Retention<span id="arrow3">▼</span></button></th>
+                <th><button onclick="sortTable(4)">Proj. Cap Hit<span id="arrow4">▼</span></button></th>
+                <th><button onclick="sortTable(5)">Proj. Cap Space<span id="arrow5">▼</span></button></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% teams.forEach(team => { %>
+                <tr>
+                    <td><%= team.name %></td>
+                    <td><%= team.rostersize %></td>
+                    <td><%= team.contractslots %></td>
+                    <td><%= team.retentionslots %></td>
+                    <td><%= team.projcaphit %></td>
+                    <td><%= team.currentcapspace %></td>
+                </tr>
+            <% }) %>
+    </table>
+    <script type="module" src="/scripts/teams.js"></script>
+</body>
+</html>

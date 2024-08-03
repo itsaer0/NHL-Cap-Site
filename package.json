@@ -1,0 +1,25 @@
+{
+  "name": "nhl-cap-site",
+  "version": "1.0.0",
+  "description": "Simple NHL Salary Cap Site",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon --watch . --ext js,ejs,json --ignore node_modules/",
+    "build:css": "tailwindcss -i ./src/main.css -o ./dist/main.css --minify"
+  },
+  "author": "Colin Reinhardt",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.3"
+  },
+  "devDependencies": {
+    "daisyui": "^4.12.10",
+    "nodemon": "^3.1.4",
+    "tailwindcss": "^3.4.4"
+  }
+}
