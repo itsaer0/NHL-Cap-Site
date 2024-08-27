@@ -3,9 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
     <title>Add a player to our database</title>
 </head>
 <body>
-    
+    <%- include('./partials/navbar', {page: '/players/addPlayer'}) %>
+    <main class="container mx-auto">
+        <div class="hero h-1/5 bg-base-200 mb-5">
+            <div class="text-center hero-content">
+                <div class="max-w-md">
+                    <h1 class="mb-5 text-5xl font-bold">Add Player</h1>
+                    <p class="mb-5">Use the form below to add a new player to our database</p>
+                </div>
+            </div>
+        </div>
+        <form action="/players/addPlayer" method="POST" class="form-control">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-0">
+                <div>
+                    <div class="mb-6">
+                        <label for="id" class="block text-gray-700 font-medium">Player ID</label>
+                        <input type="text" name="id" id="id" value="<%= nextID %>" readonly class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="name" class="block text-gray-700 font-medium">Name</label>
+                        <input type="text" name="name" id="name" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="age" class="block text-gray-700 font-medium">Age</label>
+                        <input type="number" name="age" id="age" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="birthdate" class="block text-gray-700 font-medium">Birthdate</label>
+                        <input type="date" name="birthdate" id="birthdate" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="height" class="block text-gray-700 font-medium">Height (cm)</label>
+                        <input type="number" name="height" id="height" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="weight" class="block text-gray-700 font-medium">Weight (kg)</label>
+                        <input type="number" name="weight" id="height" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="birthplace" class="block text-gray-700 font-medium">Birthplace</label>
+                        <input type="text" id="birthplace" name="birthplace" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="nationality" class="block text-gray-700 font-medium">Nationality</label>
+                        <input type="text" id="nationality" name="nationality" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="draftyear" class="block text-gray-700 font-medium">Draft Year</label>
+                        <input type="number" id="draftyear" name="draftyear" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="draftround" class="block text-gray-700 font-medium">Draft Round</label>
+                        <input type="number" id="draftround" name="draftround" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div class="mb-6">
+                        <label for="draftposition" class="block text-gray-700 font-medium">Draft Position</label>
+                        <input type="number" id="draftposition" name="draftposition" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="draftteam" class="block text-gray-700 font-medium">Draft Team</label>
+                        <select id="draftteam" name="draftteam" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                            <option value="Anaheim Ducks">Anaheim Ducks</option>
+                            <option value="Boston Bruins">Boston Bruins</option>
+                            <option value="Buffalo Sabres">Buffalo Sabres</option>
+                            <option value="Calgary Flames">Calgary Flames</option>
+                            <option value="Carolina Hurricanes">Carolina Hurricanes</option>
+                            <option value="Chicago Blackhawks">Chicago Blackhawks</option>
+                            <option value="Colorado Avalanche">Colorado Avalanche</option>
+                            <option value="Columbus Blue Jackets">Columbus Blue Jackets</option>
+                            <option value="Dallas Stars">Dallas Stars</option>
+                            <option value="Detroit Red Wings">Detroit Red Wings</option>
+                            <option value="Edmonton Oilers">Edmonton Oilers</option>
+                            <option value="Florida Panthers">Florida Panthers</option>
+                            <option value="Los Angeles Kings">Los Angeles Kings</option>
+                            <option value="Minnesota Wild">Minnesota Wild</option>
+                            <option value="Montreal Canadiens">Montreal Canadiens</option>
+                            <option value="Nashville Predators">Nashville Predators</option>
+                            <option value="New Jersey Devils">New Jersey Devils</option>
+                            <option value="New York Islanders">New York Islanders</option>
+                            <option value="New York Rangers">New York Rangers</option>
+                            <option value="Ottawa Senators">Ottawa Senators</option>
+                            <option value="Philadelphia Flyers">Philadelphia Flyers</option>
+                            <option value="Pittsburgh Penguins">Pittsburgh Penguins</option>
+                            <option value="San Jose Sharks">San Jose Sharks</option>
+                            <option value="Seattle Kraken">Seattle Kraken</option>
+                            <option value="St. Louis Blues">St. Louis Blues</option>
+                            <option value="Tampa Bay Lightning">Tampa Bay Lightning</option>
+                            <option value="Toronto Maple Leafs">Toronto Maple Leafs</option>
+                            <option value="Utah Hockey Club">Utah Hockey Club</option>
+                            <option value="Vancouver Canucks">Vancouver Canucks</option>
+                            <option value="Vegas Golden Knights">Vegas Golden Knights</option>
+                            <option value="Washington Capitals">Washington Capitals</option>
+                            <option value="Winnipeg Jets">Winnipeg Jets</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="mb-6">
+                            <label for="currentteam" class="block text-gray-700 font-medium">Current Team</label>
+                            <select id="currentteam" name="currentteam" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                                <option value="Anaheim Ducks">Anaheim Ducks</option>
+                                <option value="Boston Bruins">Boston Bruins</option>
+                                <option value="Buffalo Sabres">Buffalo Sabres</option>
+                                <option value="Calgary Flames">Calgary Flames</option>
+                                <option value="Carolina Hurricanes">Carolina Hurricanes</option>
+                                <option value="Chicago Blackhawks">Chicago Blackhawks</option>
+                                <option value="Colorado Avalanche">Colorado Avalanche</option>
+                                <option value="Columbus Blue Jackets">Columbus Blue Jackets</option>
+                                <option value="Dallas Stars">Dallas Stars</option>
+                                <option value="Detroit Red Wings">Detroit Red Wings</option>
+                                <option value="Edmonton Oilers">Edmonton Oilers</option>
+                                <option value="Florida Panthers">Florida Panthers</option>
+                                <option value="Los Angeles Kings">Los Angeles Kings</option>
+                                <option value="Minnesota Wild">Minnesota Wild</option>
+                                <option value="Montreal Canadiens">Montreal Canadiens</option>
+                                <option value="Nashville Predators">Nashville Predators</option>
+                                <option value="New Jersey Devils">New Jersey Devils</option>
+                                <option value="New York Islanders">New York Islanders</option>
+                                <option value="New York Rangers">New York Rangers</option>
+                                <option value="Ottawa Senators">Ottawa Senators</option>
+                                <option value="Philadelphia Flyers">Philadelphia Flyers</option>
+                                <option value="Pittsburgh Penguins">Pittsburgh Penguins</option>
+                                <option value="San Jose Sharks">San Jose Sharks</option>
+                                <option value="Seattle Kraken">Seattle Kraken</option>
+                                <option value="St. Louis Blues">St. Louis Blues</option>
+                                <option value="Tampa Bay Lightning">Tampa Bay Lightning</option>
+                                <option value="Toronto Maple Leafs">Toronto Maple Leafs</option>
+                                <option value="Utah Hockey Club">Utah Hockey Club</option>
+                                <option value="Vancouver Canucks">Vancouver Canucks</option>
+                                <option value="Vegas Golden Knights">Vegas Golden Knights</option>
+                                <option value="Washington Capitals">Washington Capitals</option>
+                                <option value="Winnipeg Jets">Winnipeg Jets</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="position" class="block text-gray-700 font-medium">Position</label>
+                        <select id="position" name="position[]" multiple required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                            <option value="Center">Center</option>
+                            <option value="Left Wing">Left Wing</option>
+                            <option value="Right Wing">Right Wing</option>
+                            <option value="Right Defense">Right Defense</option>
+                            <option value="Left Defense">Left Defense</option>
+                            <option value="Goaltender">Goalie</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="mb-6">
+                            <label for="handedness" class="block text-gray-700 font-medium">Handedness</label>
+                            <select id="handedness" name="handedness" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                                <option value="Left">Left</option>
+                                <option value="Right">Right</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="currrentcaphit" class="block text-gray-700 font-medium">Current Cap Hit</label>
+                        <input type="number" id="currentcaphit" name="currentcaphit" required class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div>
+                        <label for="captain" class="block text-gray-700 font-medium">Captain</label>
+                        <input type="checkbox" id="captain" name="captain" value="true" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="alternatecaptain" class="block text-gray-700 font-medium">Alternate Captain</label>
+                        <input type="checkbox" id="alternatecaptain" name="alternatecaptain" value="true" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                    <div>
+                        <label for="active" class="block text-gray-700 font-medium">Active</label>
+                        <input type="checkbox" id="active" name="active" value="true" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-6">
+                        <label for="injuredreserve" class="block text-gray-700 font-medium">Injured Reserve</label>
+                        <input type="checkbox" id="injuredreserve" name="injuredreserve" value="true" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                </div>
+                <div>
+                    <label for="longterminjuredreserve" class="block text-gray-700 font-medium">Long Term Injured Reserve</label>
+                    <input type="checkbox" id="longterminjuredreserve" name="longterminjuredreserve" value="true" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+                </div>
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="btn btn-primary w-full">ADD PLAYER</button>
+            </div>
+        </form>  
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const captainCheckbox = document.getElementById('captain');
+            const alternateCaptainCheckbox = document.getElementById('alternatecaptain');
+            const injuredReserveCheckbox = document.getElementById('injuredreserve');
+            const longTermInjuredReserveCheckbox = document.getElementById('longterminjuredreserve');
+
+            function updateCheckboxes() {
+                if (captainCheckbox.checked) {
+                    alternateCaptainCheckbox.disabled = true;
+                } else {
+                    alternateCaptainCheckbox.disabled = false;
+                }
+
+                if (alternateCaptainCheckbox.checked) {
+                    captainCheckbox.disabled = true;
+                } else {
+                    captainCheckbox.disabled = false;
+                }
+
+                if (longTermInjuredReserveCheckbox.checked) {
+                    injuredReserveCheckbox.disabled = true;
+                } else {
+                    injuredReserveCheckbox.disabled = false;
+                }
+
+                if (injuredReserveCheckbox.checked) {
+                    longTermInjuredReserveCheckbox.disabled = true;
+                } else {
+                    longTermInjuredReserveCheckbox.disabled = false;
+                }
+            }
+
+            captainCheckbox.addEventListener('change', updateCheckboxes);
+            alternateCaptainCheckbox.addEventListener('change', updateCheckboxes);
+            injuredReserveCheckbox.addEventListener('change', updateCheckboxes);
+            longTermInjuredReserveCheckbox.addEventListener('change', updateCheckboxes);
+
+            // Initial call to set the correct state
+            updateCheckboxes();
+        });
+    </script>
 </body>
 </html>

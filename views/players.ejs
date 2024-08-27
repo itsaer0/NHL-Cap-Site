@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>All Players</title>
+</head>
+<body>
+    <%- include('./partials/navbar', {page: '/players'}) %>
+    <h1>All Players In Our Database</h1>
+    <table id="sortableTable" class="table-zebra">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Birthdate</th>
+                <th>Height (cm)</th>
+                <th>Weight (kg)</th>
+                <th>Birthplace</th>
+                <th>Nationality</th>
+                <th>Draft Year</th>
+                <th>Draft Position</th>
+                <th>Draft Team</th>
+                <th>Current Team</th>
+                <th>Positions</th>
+                <th>Handedness</th>
+                <th>Current Cap Hit</th>
+                <th>Captain</th>
+                <th>Alternate Captain</th>
+                <th>Active</th>
+                <th>Injured Reserve</th>
+                <th>Long Term Injured Reserve</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% players.forEach(player => { %>
+                <tr>
+                    <td><%= player.name %></td>
+                    <td><%= player.age %></td>
+                    <td><%= player.birthdate %></td>
+                    <td><%= player.height %></td>
+                    <td><%= player.weight %></td>
+                    <td><%= player.birthplace %></td>
+                    <td><%= player.nationality %></td>
+                    <td><%= player.draftyear ? player.draftyear : 'n/a' %></td>
+                    <td><%= player.draftposition ? player.draftposition : 'n/a' %></td>
+                    <td><%= player.draftteam ? player.draftteam : 'Undrafted' %></td>
+                    <td><%= player.currentteam %></td>
+                    <td><%= player.positions.join(', ') %></td>
+                    <td><%= player.handedness %></td>
+                    <td><%= player.currentcaphit %></td>
+                    <td><%= player.captain ? 'Yes' : 'No' %></td>
+                    <td><%= player.alternatecaptain ? 'Yes' : 'No' %></td>
+                    <td><%= player.active ? 'Yes' : 'No' %></td>
+                    <td><%= player.injuredreserve ? 'Yes' : 'No' %></td>
+                    <td><%= player.longterminjuredreserve ? 'Yes' : 'No' %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var table = document.getElementById('sortableTable');
+            new Tablesort(table);
+
+            // Custom parser for numerical values
+            Tablesort.extend('number', function(item) {
+                return item.match(/^-?\d+(\.\d+)?$/);
+            }, function(a, b) {
+                a = parseFloat(a);
+                b = parseFloat(b);
+                return a - b;
+            });
+        });
+    </script>
+</body>
+</html>

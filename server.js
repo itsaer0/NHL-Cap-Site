@@ -37,13 +37,14 @@ nhlData.initializeDB().then(() => { // initialize the playerStats module
         });
     });
 
-    app.get('/players/addPlayer', (req, res) => { // set the route for the add players page
-        nhlData.getAllTeams().then((data) => { // get all the teams
-            res.render('addPlayer', {teams: data}); // render the add player page
-        })
-        .catch((err) => { // if an error occurs
+    app.get('/players/addPlayer', async (req, res) => { // set the route for the add players page
+        try {
+            let nextID = await nhlData.getNextID(); // get the next ID
+            let teams = await nhlData.getAllTeams(); // get all the teams
+            res.render('addPlayer', {nextID: nextID, teams: teams}); // render the add player page
+        } catch (err) { // if an error occurs
             res.status(404).render('404', {message: 'Error getting teams.'}); // render the 404 page
-        });
+        }
     });
 
     app.post('/players/addPlayer', (req, res) => { // set the route for adding a player

@@ -345,7 +345,7 @@ async function getTeamByID(id) {
     }
 }
 
-function addPlayer(player) {
+async function addPlayer(player) {
     return new Promise((resolve, reject) => {
         Player.create(player)
         .then(() => {
@@ -357,4 +357,19 @@ function addPlayer(player) {
     });
 }
 
-module.exports = { dbConnection, initializeDB, getAllPlayers, getAllTeams, getActivePlayers, getPlayersByTeam, getPlayersByPosition, getPlayersByAge, getPlayersByDraftYear, getTeamByName, getTeamByID, addPlayer, Player, Team, Contract};
+async function getNextID() {
+    try {
+        let nextID = 0;
+        const players = await Player.find({});
+        players.forEach(player => {
+            if (player.id > nextID) {
+                nextID = player.id;
+            }
+        });
+        return nextID + 1;
+    } catch (err) {
+        return "Error getting next ID: " + err;
+    }
+}
+
+module.exports = { dbConnection, initializeDB, getAllPlayers, getAllTeams, getActivePlayers, getPlayersByTeam, getPlayersByPosition, getPlayersByAge, getPlayersByDraftYear, getTeamByName, getTeamByID, addPlayer, getNextID, Player, Team, Contract};
