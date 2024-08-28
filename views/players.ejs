@@ -5,38 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
     <title>All Players</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 1200px;
+            overflow-x: auto;
+            justify-content: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        th button:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <%- include('./partials/navbar', {page: '/players'}) %>
     <h1>All Players In Our Database</h1>
+    <!-- Search Bar and Filters -->
+    <div>
+        <input type="text" id="searchInput" placeholder="Search for players...">
+        <label for="ageRange">Age Range:</label>
+        <input type="number" id="minAge" placeholder="Min Age">
+        <input type="number" id="maxAge" placeholder="Max Age">
+        <label for="salaryRange">Salary Range:</label>
+        <input type="number" id="minSalary" placeholder="Min Salary">
+        <input type="number" id="maxSalary" placeholder="Max Salary">
+        <label for="positionFilter">Position:</label>
+        <select id="positionFilter" multiple>
+            <option value="">All</option>
+            <option value="Right Wing">Right Wing</option>
+            <option value="Left Wing">Left Wing</option>
+            <option value="Center">Center</option>
+            <option value="Right Defense">Right Defense</option>
+            <option value="Left Defense">Left Defense</option>
+            <option value="Goaltender">Goalie</option>
+        </select>
+        <button onclick="filterTable()">Filter</button>
+    </div>
+
     <table id="sortableTable" class="table-zebra">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Birthdate</th>
-                <th>Height (cm)</th>
-                <th>Weight (kg)</th>
-                <th>Birthplace</th>
-                <th>Nationality</th>
-                <th>Draft Year</th>
-                <th>Draft Position</th>
-                <th>Draft Team</th>
-                <th>Current Team</th>
-                <th>Positions</th>
-                <th>Handedness</th>
-                <th>Current Cap Hit</th>
-                <th>Captain</th>
-                <th>Alternate Captain</th>
-                <th>Active</th>
-                <th>Injured Reserve</th>
-                <th>Long Term Injured Reserve</th>
+                <th><button>Name</button></th>
+                <th><button>Age</button></th>
+                <th><button>Birthdate</button></th>
+                <th><button>Height (cm)</button></th>
+                <th><button>Weight (kg)</button></th>
+                <th><button>Birthplace</button></th>
+                <th><button>Nationality</button></th>
+                <th><button>Draft Year</button></th>
+                <th><button>Draft Position</button></th>
+                <th><button>Draft Team</button></th>
+                <th><button>Current Team</button></th>
+                <th><button>Positions</button></th>
+                <th><button>Handedness</button></th>
+                <th><button>Current Cap Hit</button></th>
+                <th><button>Captain</button></th>
+                <th><button>Alternate Captain</button></th>
+                <th><button>Active</button></th>
+                <th><button>Injured Reserve</button></th>
+                <th><button>Long Term Injured Reserve</button></th>
             </tr>
         </thead>
         <tbody>
             <% players.forEach(player => { %>
                 <tr>
-                    <td><%= player.name %></td>
+                    <td><a href="/players/<%= player.id %>" class="text-blue-500 hover:underline"><%= player.name %></a></td>
                     <td><%= player.age %></td>
                     <td><%= player.birthdate %></td>
                     <td><%= player.height %></td>
@@ -75,6 +134,36 @@
                 return a - b;
             });
         });
+
+        function filterTable() {
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var minAge = parseInt(document.getElementById('minAge').value) || 0;
+            var maxAge = parseInt(document.getElementById('maxAge').value) || Infinity;
+            var minSalary = parseInt(document.getElementById('minSalary').value) || 0;
+            var maxSalary = parseInt(document.getElementById('maxSalary').value) || Infinity;
+            var positionFilter = document.getElementById('positionFilter').value.toLowerCase();
+
+            var table = document.getElementById('sortableTable');
+            var rows = table.getElementsByTagName('tr');
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var name = cells[0].innerText.toLowerCase();
+                var age = parseInt(cells[1].innerText);
+                var salary = parseInt(cells[13].innerText.replace(/[^0-9.-]+/g, "")); // Remove any non-numeric characters
+                var positions = cells[11].innerText.toLowerCase();
+
+                var matchesSearch = name.includes(searchInput);
+                var matchesAge = age >= minAge && age <= maxAge;
+                var matchesSalary = salary >= minSalary && salary <= maxSalary;
+                var matchesPosition = positionFilter === "" || positions.includes(positionFilter);
+
+                if (matchesSearch && matchesAge && matchesSalary && matchesPosition) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </body>
 </html>

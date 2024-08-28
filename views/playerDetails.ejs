@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title><%= player.name %> - Stats & Info</title>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4"><%= player.name %></h1>
+            <img src="<%= player.imageUrl %>" alt="<%= player.name %>" class="rounded-lg mb-4">
+            <p><strong>Age:</strong> <%= player.age %></p>
+            <p><strong>Birthdate:</strong> <%= player.birthdate %></p>
+            <p><strong>Height (cm):</strong><%= player.height %></p>
+            <p><strong>Weight (kg):</strong> <%= player.weight %></p>
+            <p><strong>Birthplace:</strong> <%= player.birthplace %></p>
+            <p><strong>Nationality:</strong> <%= player.nationality %></p>
+            <p><strong>Draft Year:</strong> <%= player.draftyear %></p>
+            <p><strong>Draft Position:</strong> <%= player.draftposition %></p>
+            <p><strong>Draft Round:</strong> <%= player.draftround %></p>
+            <p><strong>Draft Team:</strong> <%= player.draftteam %></p>
+            <p><strong>Current Team</strong> <%= player.currentteam %></p>
+            <p><strong>Position(s):</strong> <%= player.positions %></p>
+            <p><strong>Shoots:</strong> <%= player.handedness %></p>
+            <p><strong>Salary:</strong> <%= player.currentcaphit %></p>
+            <p><strong>Captain?</strong> <%= player.captain %></p>
+            <p><strong>Alternate Captain?</strong> <%= player.alternatecaptain %></p>
+            <p><strong>Active?</strong> <%= player.active %></p>
+            <p><strong>Injured Reserve?</strong> <%= player.injuredreserve %></p>
+            <p><strong>Long Term Injured Reserve?</strong> <%= player.longterminjuredreserve %></p>
+            
+        </div>
+    </div>
+</body>
+</html>

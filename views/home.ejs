@@ -5,34 +5,152 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
     <title>NHL Cap Site</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 1200px;
+            overflow-x: auto;
+            justify-content: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        th button:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <%- include('./partials/navbar', {page: '/home'}) %>
     <h1>2024-25 Cap Space</h1>
     <h5>Upper Limit: 88.0M | Lower Limit: 65.0M</h5>
-    <table id="sortableTable" class="table-zebra">
-        <thead>
-            <tr>
-                <th><button onclick="sortTable(0)">Team<span id="arrow0">▼</span></button></th>
-                <th><button onclick="sortTable(1)">Roster Size<span id="arrow1">▼</span></button></th>
-                <th><button onclick="sortTable(2)">Contracts<span id="arrow2">▼</span></button></th>
-                <th><button onclick="sortTable(3)">Retention<span id="arrow3">▼</span></button></th>
-                <th><button onclick="sortTable(4)">Proj. Cap Hit<span id="arrow4">▼</span></button></th>
-                <th><button onclick="sortTable(5)">Proj. Cap Space<span id="arrow5">▼</span></button></th>
-            </tr>
-        </thead>
-        <tbody>
-            <% teams.forEach(team => { %>
+
+    <div>
+        <input type="text" id="searchInput" placeholder="Search for teams...">
+        <label for="capSpaceRange">Cap Space Range:</label>
+        <input type="number" id="minCapSpace" placeholder="Min Cap Space">
+        <input type="number" id="maxCapSpace" placeholder="Max Cap Space">
+        <label for="rosterSize">Roster Size:</label>
+        <input type="number" id="minRosterSize" placeholder="Min Roster Size">
+        <input type="number" id="maxRosterSize" placeholder="Max Roster Size">
+        <label for="contractSlots">Contract Slots:</label>
+        <input type="number" id="minContractSlots" placeholder="Min Contract Slots">
+        <input type="number" id="maxContractSlots" placeholder="Max Contract Slots">
+        <label for="retentionSlots">Retention Slots:</label>
+        <input type="number" id="minRetentionSlots" placeholder="Min Retention Slots">
+        <input type="number" id="maxRetentionSlots" placeholder="Max Retention Slots">
+        <label for="projcapspace">Projected Cap Space:</label>
+        <input type="number" id="minProjCapSpace" placeholder="Min Proj. Cap Space">
+        <input type="number" id="maxProjCapSpace" placeholder="Max Proj. Cap Space">
+        <button onclick="filterTable()">Filter</button>
+    </div>
+
+    <div class="table-container">
+        <table id="sortableTable" class="table-zebra">
+            <thead>
                 <tr>
-                    <td><%= team.name %></td>
-                    <td><%= team.rostersize %></td>
-                    <td><%= team.contractslots %></td>
-                    <td><%= team.retentionslots %></td>
-                    <td><%= team.projcaphit %></td>
-                    <td><%= team.currentcapspace %></td>
+                    <th><button onclick="sortTable(0)">Team</button></th>
+                    <th><button onclick="sortTable(1)">Roster Size</button></th>
+                    <th><button onclick="sortTable(2)">Contracts</button></th>
+                    <th><button onclick="sortTable(3)">Retention</button></th>
+                    <th><button onclick="sortTable(4)">Proj. Cap Hit</button></th>
+                    <th><button onclick="sortTable(5)">Proj. Cap Space</button></th>
                 </tr>
-            <% }) %>
-    </table>
+            </thead>
+            <tbody>
+                <% teams.forEach(team => { %>
+                    <tr>
+                        <td><%= team.name %></td>
+                        <td><%= team.rostersize %></td>
+                        <td><%= team.contractslots %></td>
+                        <td><%= team.retentionslots %></td>
+                        <td><%= team.projcaphit %></td>
+                        <td><%= team.currentcapspace %></td>
+                    </tr>
+                <% }) %>
+        </table>
+    </div>
+
     <script type="module" src="/scripts/teams.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/sorts/tablesort.number.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var table = document.getElementById('sortableTable');
+            new Tablesort(table);
+
+            // Custom parser for numerical values
+            Tablesort.extend('number', function(item) {
+                return item.match(/^-?\d+(\.\d+)?$/);
+            }, function(a, b) {
+                a = parseFloat(a);
+                b = parseFloat(b);
+                return a - b;
+            });
+        });
+
+        function filterTable() {
+            var searchInput = document.getElementById('searchInput').value.toLowerCase();
+            var minCapSpace = parseFloat(document.getElementById('minCapSpace').value) || 0;
+            var maxCapSpace = parseFloat(document.getElementById('maxCapSpace').value) || Infinity;
+            var minRosterSize = parseInt(document.getElementById('minRosterSize').value) || 0;
+            var maxRosterSize = parseInt(document.getElementById('maxRosterSize').value) || Infinity;
+            var minContractSlots = parseInt(document.getElementById('minContractSlots').value) || 0;
+            var maxContractSlots = parseInt(document.getElementById('maxContractSlots').value) || Infinity;
+            var minRetentionSlots = parseInt(document.getElementById('minRetentionSlots').value) || 0;
+            var maxRetentionSlots = parseInt(document.getElementById('maxRetentionSlots').value) || Infinity;
+            var minProjCapSpace = parseFloat(document.getElementById('minProjCapSpace').value) || 0;
+            var maxProjCapSpace = parseFloat(document.getElementById('maxProjCapSpace').value) || Infinity;
+
+            var table = document.getElementById('sortableTable');
+            var rows = table.getElementsByTagName('tr');
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var name = cells[0].innerText.toLowerCase();
+                var rosterSize = parseInt(cells[1].innerText);
+                var contractSlots = parseInt(cells[2].innerText);
+                var retentionSlots = parseInt(cells[3].innerText);
+                var projCapHit = parseFloat(cells[4].innerText.replace(/[^0-9.-]+/g, ""));
+                var projCapSpace = parseFloat(cells[5].innerText.replace(/[^0-9.-]+/g, ""));
+
+                var matchesSearch = name.includes(searchInput);
+                var matchesCapSpace = projCapSpace >= minCapSpace && projCapSpace <= maxCapSpace;
+                var matchesRosterSize = rosterSize >= minRosterSize && rosterSize <= maxRosterSize;
+                var matchesContractSlots = contractSlots >= minContractSlots && contractSlots <= maxContractSlots;
+                var matchesRetentionSlots = retentionSlots >= minRetentionSlots && retentionSlots <= maxRetentionSlots;
+                var matchesProjCapSpace = projCapSpace >= minProjCapSpace && projCapSpace <= maxProjCapSpace;
+
+                if (matchesSearch && matchesCapSpace && matchesRosterSize && matchesContractSlots && matchesRetentionSlots && matchesProjCapSpace) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
 </body>
 </html>

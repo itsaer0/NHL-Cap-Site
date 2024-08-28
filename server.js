@@ -56,6 +56,15 @@ nhlData.initializeDB().then(() => { // initialize the playerStats module
         });
     });
 
+    app.get('/players/:playerID', (req, res) => { // set the route for the player page
+        nhlData.getPlayerByID(req.params.playerID).then((data) => { // get the player by ID
+            res.render('playerDetails', {player: data}); // render the player page
+        })
+        .catch((err) => { // if an error occurs
+            res.status(404).render('404', {message: 'Error getting player.'}); // render the 404 page
+        });
+    });
+
     app.get('/teams/:teamName', (req, res) => { // set the route for the team page
         nhlData.getPlayersByTeam(req.params.teamName).then((data) => { // get the players for a team
             res.render('players', {players: data}); // render the players page

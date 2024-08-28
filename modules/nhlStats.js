@@ -291,6 +291,14 @@ async function getActivePlayers() {
     }
 }
 
+async function getPlayerByID(id) {
+    try {
+        return await Player.findOne({id: id});
+    } catch (err) {
+        return "Error getting player by ID: " + err;
+    }
+}
+
 async function getPlayersByTeam(team) {
     try {
         return await Player.find({currentteam: team});
@@ -372,4 +380,4 @@ async function getNextID() {
     }
 }
 
-module.exports = { dbConnection, initializeDB, getAllPlayers, getAllTeams, getActivePlayers, getPlayersByTeam, getPlayersByPosition, getPlayersByAge, getPlayersByDraftYear, getTeamByName, getTeamByID, addPlayer, getNextID, Player, Team, Contract};
+module.exports = { dbConnection, initializeDB, getAllPlayers, getAllTeams, getActivePlayers, getPlayerByID, getPlayersByTeam, getPlayersByPosition, getPlayersByAge, getPlayersByDraftYear, getTeamByName, getTeamByID, addPlayer, getNextID, Player, Team, Contract};

@@ -4,8 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
-<body>
-    
+<body class="bg-gray-100">
+    <%- include('./partials/navbar', {page: '/about'}) %>
+    <div class="container mx-auto p-6">
+        <div class="section bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h2 class="text-2xl font-bold mb-4">About Me</h2>
+            <p>Welcome to my personal project! I'm passionate about web development and hockey. This site is designed to work like the now shut down CapFriendly which was a godsend for hockey fans wanting to learn more about their teams salary cap structures and much more. I look to take inspiration from them and build upon this site overtime into one that will benefit hockey fans all around.</p>
+        </div>
+
+        <div class="section bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h2 class="text-2xl font-bold mb-4">Favorite Team</h2>
+            <p>Unfortunately, my favorite team are the Toronto Maple Leafs, I know, I know, laugh all you want. I have been a fan since I was born basically. Growing up in the GTA with many family members that were fans, especially my grandpa and father watching games all throughout my childhood and I've become an even bigger fan over time. </p>
+        </div>
+
+        <div class="section bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h2 class="text-2xl font-bold mb-4">Web Development</h2>
+            <p>I am currently a student at Seneca College in Toronto, ON studying Computer Programming and Analysis. Throughout my studies I have particularily enjoyed the web design and development side of coding and look to pursure further after graduation. This site will serve as part of my portfolio for the future!</p>
+        </div>
+    </div>
 </body>
 </html>
