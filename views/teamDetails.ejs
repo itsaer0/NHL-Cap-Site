@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+    <title><%= team.name %> - Stats & Info</title>
+</head>
+<body class="bg-gray-100 container mx-auto">
+    <%- include('./partials/navbar', {page: '/teams/team.id'}) %>
+    <div class="hero h-1/5 bg-base-200 mb-5">
+        <div class="text-center hero-content">
+            <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold"><%= team.name %></h1>
+                <p class="mb-5">The <%= team.name %> are in the <%= team.division %> division in the <%= team.conference %> conference.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-auto p-6">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold mb-4"><%= team.name %></h1>
+            <img src="<%= team.imageUrl %>" alt="<%= team.name %>" class="rounded-lg mb-4">
+            <p><strong>Abbreviation: </strong> <%= team.abbreviation %></p>
+            <p><strong>Conference: </strong> <%= team.conference %></p>
+            <p><strong>Division: </strong> <%= team.division %></p>
+            <p><strong>City: </strong> <%= team.city %></p>
+            <p><strong>Arena </strong> <%= team.arena %></p>
+            <p><strong>Projected Cap Hit: </strong> <%= team.projcaphit %></p>
+            <p><strong>Projected LTIR Used: </strong> <%= team.projltirused %></p>
+            <p><strong>Current Cap Space: </strong> <%= team.currentcapspace %></p>
+            <p><strong>Deadline Cap Space: </strong> <%= team.deadlinecapspace %></p>
+            <p><strong>Current Cap Hit: </strong> <%= team.currentcaphit %></p>
+            <p><strong>Roster Size: </strong> <%= team.rostersize %></p>
+            <p><strong>Contract Slots: </strong> <%= team.contractslots %></p>
+            <p><strong>Retention Slots: </strong> <%= team.retentionslots %></p>
+            <p><strong>Current Injuries: </strong> <%= team.currentinjuries %></p>
+            <p><strong>General Manager: </strong> <%= team.generalmanager %></p>
+            <p><strong>Head Coach: </strong> <%= team.headcoach %></p>
+        </div>
+    </div>
+</body>
+</html>

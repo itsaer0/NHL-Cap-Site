@@ -6,7 +6,16 @@
     <link rel="stylesheet" href="/css/main.css">
     <title><%= player.name %> - Stats & Info</title>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 container mx-auto">
+    <%- include('./partials/navbar', {page: '/players/player.id'}) %>
+    <div class="hero h-1/5 bg-base-200 mb-5">
+        <div class="text-center hero-content">
+            <div class="max-w-md">
+                <h1 class="mb-5 text-5xl font-bold"><%= player.name %></h1>
+                <p class="mb-5"><%= player.name %> is a [Forward, Defenseman, Goalie] for the <%= player.currentteam %>.</p>
+            </div>
+        </div>
+    </div>
     <div class="container mx-auto p-6">
         <div class="bg-white p-6 rounded-lg shadow-lg">
             <h1 class="text-3xl font-bold mb-4"><%= player.name %></h1>

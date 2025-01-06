@@ -83,7 +83,7 @@
             <tbody>
                 <% teams.forEach(team => { %>
                     <tr>
-                        <td><%= team.name %></td>
+                        <td><a href="/teams/<%= team.id %>" class="text-blue-500 hover:underline"><%= team.name %></a></td>
                         <td><%= team.rostersize %></td>
                         <td><%= team.contractslots %></td>
                         <td><%= team.retentionslots %></td>
