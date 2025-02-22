@@ -108,6 +108,10 @@ const teamSchema = new Schema({
         type: String,
         required: true
     },
+    imageURL: {
+        type: String,
+        required: true
+    },
     abbreviation: {
         type: String,
         required: true

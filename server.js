@@ -65,13 +65,44 @@ nhlData.initializeDB().then(() => { // initialize the playerStats module
         });
     });
 
-    app.get('/teams/:teamID', (req, res) => { // set the route for the team page
+    /* app.get('/teams/:teamID', (req, res) => { // set the route for the team page
         nhlData.getTeamByID(req.params.teamID).then((data) => { // get the team from db
             res.render('teamDetails', {team: data}); // render the players page
         })
         .catch((err) => { // if an error occurs
             res.status(404).render('404', {message: 'Error getting players for that team.'}); // render the 404 page
         });
+    }); */
+
+    app.get('/teams/:teamID', async (req, res) => {
+        try {
+          const team = await nhlData.getTeamByID(req.params.teamID);
+          const players = await nhlData.getPlayersByTeam(team.name);
+          res.render('teamDetails', { team, players });
+        } catch (err) {
+          console.error(err);
+          res.status(404).render('404', { message: 'Error getting players for that team.' });
+        }
+    });
+
+    app.get('/beagm', async (req, res) => { // set the route for the be a gm page
+        try {
+            const teams = await nhlData.getAllTeams(); // get all the teams
+            res.render('beagm', { teams }); // render the be a gm page
+        } catch (err) { // if an error occurs
+            res.status(404).render('404', {message: 'Error getting teams.'}); // render the 404 page
+        }
+    });
+
+    app.get('/beagm/:teamID', async (req, res) => { // set the route for the be a gm page
+        try {
+            const teams = await nhlData.getAllTeams(); // get all the teams
+            const team = await nhlData.getTeamByID(req.params.teamID); // get the team
+            const players = await nhlData.getPlayersByTeam(team.name); // get the players
+            res.render('beagmteam', { team, players, teams }); // render the be a gm page
+        } catch (err) { // if an error occurs
+            res.status(404).render('404', {message: 'Error getting teams.'}); // render the 404 page
+        }
     });
 
     app.use('/user', userRoutes); // use the userRoutes module

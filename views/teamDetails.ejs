@@ -11,15 +11,18 @@
     <div class="hero h-1/5 bg-base-200 mb-5">
         <div class="text-center hero-content">
             <div class="max-w-md">
-                <h1 class="mb-5 text-5xl font-bold"><%= team.name %></h1>
-                <p class="mb-5">The <%= team.name %> are in the <%= team.division %> division in the <%= team.conference %> conference.</p>
+                <div class="max-w-md flex items-center justify-center">
+                    <h1 class="mb-5 text-5xl font-bold"><%= team.name %></h1>
+                    <img src="<%= team.imageURL %>" alt="<%= team.name %> team logo" style="width: 150px; height: 150px;">
+                </div>
+                <p class="mb-5">The <%= team.name %> are a professional ice hockey team in the NHL. They play in the <%= team.division %> division in the <%= team.conference %> conference.</p>
+                <p><strong>General Manager: </strong> <%= team.generalmanager %></p>
+                <p><strong>Head Coach: </strong> <%= team.headcoach %></p>
             </div>
         </div>
     </div>
     <div class="container mx-auto p-6">
         <div class="bg-white p-6 rounded-lg shadow-lg">
-            <h1 class="text-3xl font-bold mb-4"><%= team.name %></h1>
-            <img src="<%= team.imageUrl %>" alt="<%= team.name %>" class="rounded-lg mb-4">
             <p><strong>Abbreviation: </strong> <%= team.abbreviation %></p>
             <p><strong>Conference: </strong> <%= team.conference %></p>
             <p><strong>Division: </strong> <%= team.division %></p>
@@ -34,9 +37,18 @@
             <p><strong>Contract Slots: </strong> <%= team.contractslots %></p>
             <p><strong>Retention Slots: </strong> <%= team.retentionslots %></p>
             <p><strong>Current Injuries: </strong> <%= team.currentinjuries %></p>
-            <p><strong>General Manager: </strong> <%= team.generalmanager %></p>
-            <p><strong>Head Coach: </strong> <%= team.headcoach %></p>
         </div>
     </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <% for (const player of players) { %>
+          <div class="player-card" style="width: 280px; background-color: #f0f0f0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border-radius: 5px; margin-bottom: 20px;"> 
+            <h3 class="text-lg font-semibold text-center"><%= player.name %></h3>
+            <p class="text-sm text-gray-500 text-center">Age: <%= player.age %></p>
+            <p class="text-sm text-gray-500 text-center">Cap Hit: <%= player.currentcaphit %></p>
+            <p class="text-sm text-gray-500 text-center">Position: <%= player.positions %></p>
+            <p class="text-sm text-gray-500 text-center">Points: <%= player.points %> </p>
+          </div>
+        <% } %>
+      </div>
 </body>
 </html>

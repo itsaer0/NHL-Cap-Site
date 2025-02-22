@@ -68,6 +68,44 @@
         <button onclick="filterTable()">Filter</button>
     </div>
 
+    <% 
+    // Map team names to their corresponding IDs (1-32)
+    const teamIdMap = {
+        "Anaheim Ducks": 1,
+        "Boston Bruins": 2,
+        "Buffalo Sabres": 3,
+        "Calgary Flames": 4,
+        "Carolina Hurricanes": 5,
+        "Chicago Blackhawks": 6,
+        "Colorado Avalanche": 7,
+        "Columbus Blue Jackets": 8,
+        "Dallas Stars": 9,
+        "Detroit Red Wings": 10,
+        "Edmonton Oilers": 11,
+        "Florida Panthers": 12,
+        "Los Angeles Kings": 13,
+        "Minnesota Wild": 14,
+        "Montreal Canadiens": 15,
+        "Nashville Predators": 16,
+        "New Jersey Devils": 17,
+        "New York Islanders": 18,
+        "New York Rangers": 19,
+        "Ottawa Senators": 20,
+        "Philadelphia Flyers": 21,
+        "Pittsburgh Penguins": 22,
+        "San Jose Sharks": 23,
+        "Seattle Kraken": 24,
+        "St. Louis Blues": 25,
+        "Tampa Bay Lightning": 26,
+        "Toronto Maple Leafs": 27,
+        "Vancouver Canucks": 28,
+        "Vegas Golden Knights": 29,
+        "Washington Capitals": 30,
+        "Winnipeg Jets": 31,
+        "Arizona Coyotes": 32
+    };
+    %>
+
     <table id="sortableTable" class="table-zebra">
         <thead>
             <tr>
@@ -104,8 +142,16 @@
                     <td><%= player.nationality %></td>
                     <td><%= player.draftyear ? player.draftyear : 'n/a' %></td>
                     <td><%= player.draftposition ? player.draftposition : 'n/a' %></td>
-                    <td><%= player.draftteam ? player.draftteam : 'Undrafted' %></td>
-                    <td><%= player.currentteam %></td>
+                    <td>
+                        <% if (player.draftteam && teamIdMap[player.draftteam]) { %>
+                            <a href="/teams/<%= teamIdMap[player.draftteam] %>" class="text-blue-500 hover:underline">
+                                <%= player.draftteam %>
+                            </a>
+                        <% } else { %>
+                            Undrafted
+                        <% } %>
+                    </td>
+                    <td><a href="/teams/<%= teamIdMap[player.currentteam] %>" class="text-blue-500 hover:underline"><%= player.currentteam %></a></td>
                     <td><%= player.positions.join(', ') %></td>
                     <td><%= player.handedness %></td>
                     <td><%= player.currentcaphit %></td>
